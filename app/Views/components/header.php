@@ -16,6 +16,16 @@
       </form>
     </div><!-- End Search Bar -->
 
+    <?php if (session()->has('diskon')): ?>
+        <div style="
+            background-color: #28a745; color: #fff; padding: 8px 16px; border-radius: 6px; font-weight: 600; 
+            display: inline-block; font-size: 14px; white-space: nowrap; margin-left: auto; margin-right: 20px;
+        ">
+            Hari ini ada diskon <?= number_format(session('diskon')) ?> per item
+        </div>
+    <?php endif; ?>
+
+
     <nav class="header-nav ms-auto">
       <ul class="d-flex align-items-center">
 
@@ -26,7 +36,6 @@
         </li><!-- End Search Icon-->
 
         <li class="nav-item dropdown">
-
           <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
             <i class="bi bi-bell"></i>
             <span class="badge bg-primary badge-number">4</span>

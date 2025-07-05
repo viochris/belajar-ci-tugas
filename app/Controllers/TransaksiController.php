@@ -35,12 +35,21 @@ class TransaksiController extends BaseController
 
     public function cart_add()
     {
+        $hargaAsli = (int) $this->request->getPost('harga');
+        $diskonSesi = session()->get('diskon') ?? 0;     
+
+        $hargaSetelahDiskon = max(0, $hargaAsli - $diskonSesi);
+
         $this->cart->insert(array(
             'id'        => $this->request->getPost('id'),
             'qty'       => 1,
-            'price'     => $this->request->getPost('harga'),
+            'price'     => $hargaSetelahDiskon,
             'name'      => $this->request->getPost('nama'),
-            'options'   => array('foto' => $this->request->getPost('foto'))
+            'options' => [
+                'foto'        => $this->request->getPost('foto'),
+                'harga_asli'  => $hargaAsli,     # buat tambahan, siapa tau nanti butuh            
+                'potongan'    => $diskonSesi     # buat tambahan, siapa tau nanti butuh             
+            ]
         ));
         session()->setflashdata('success', 'Produk berhasil ditambahkan ke keranjang. (<a href="' . base_url() . 'keranjang">Lihat</a>)');
         return redirect()->to(base_url('/'));
@@ -86,7 +95,7 @@ class TransaksiController extends BaseController
 
     public function getLocation()
     {
-            //keyword pencarian yang dikirimkan dari halaman checkout
+        //keyword pencarian yang dikirimkan dari halaman checkout
         $search = $this->request->getGet('search');
 
         $response = $this->client->request(
@@ -105,11 +114,8 @@ class TransaksiController extends BaseController
 
     public function getCost()
     { 
-            //ID lokasi yang dikirimkan dari halaman checkout
         $destination = $this->request->getGet('destination');
 
-            //parameter daerah asal pengiriman, berat produk, dan kurir dibuat statis
-        //valuenya => 64999 : PEDURUNGAN TENGAH , 1000 gram, dan JNE
         $response = $this->client->request(
             'POST', 
             'https://rajaongkir.komerce.id/api/v1/calculate/domestic-cost', [
@@ -158,18 +164,19 @@ class TransaksiController extends BaseController
             $this->transaction->insert($dataForm);
 
             $last_insert_id = $this->transaction->getInsertID();
+            $diskonSesi = session()->get('diskon') ?? 0;
 
             foreach ($this->cart->contents() as $value) {
                 $dataFormDetail = [
                     'transaction_id' => $last_insert_id,
-                    'product_id' => $value['id'],
-                    'jumlah' => $value['qty'],
-                    'diskon' => 0,
-                    'subtotal_harga' => $value['qty'] * $value['price'],
-                    'created_at' => date("Y-m-d H:i:s"),
-                    'updated_at' => date("Y-m-d H:i:s")
+                    'product_id'     => $value['id'],
+                    'jumlah'         => $value['qty'],
+                    'diskon'         => $diskonSesi, 
+                    'subtotal_harga' => $value['qty'] * $value['price'], 
+                    'created_at'     => date("Y-m-d H:i:s"),
+                    'updated_at'     => date("Y-m-d H:i:s")
                 ];
-
+            
                 $this->transaction_detail->insert($dataFormDetail);
             }
 

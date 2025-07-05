@@ -54,7 +54,6 @@ class ApiController extends ResourceController
     
                 $data['status'] = ["code" => 200, "description" => "OK"];
                 $data['results'] = $penjualan;
-    
             }
         } 
     
