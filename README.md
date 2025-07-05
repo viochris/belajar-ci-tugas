@@ -119,54 +119,50 @@ Aplikasi ini merupakan sistem toko online sederhana berbasis **CodeIgniter 4**, 
 
 ## 🚀 Instalasi & Setup
 
-### 1. Clone Repository
+### 1. **Clone repository ini**
 
 ```bash
-git clone https://github.com/username/repo-toko-ci4.git
-cd repo-toko-ci4
+git clone [URL repository]
+cd belajar-ci-tugas
 ```
 
-### 2. Install Dependensi
+### 2. **Install dependensi**
 
 ```bash
 composer install
 ```
 
-### 3. Konfigurasi `.env`
+### 3. **Konfigurasi database**
 
-Salin file `.env` dan sesuaikan konfigurasi database:
+- Start module Apache dan MySQL pada XAMPP
+- Buat database **db_ci4** di phpmyadmin.
+- copy file .env dari tutorial https://www.notion.so/april-ns/Codeigniter4-Migration-dan-Seeding-045ffe5f44904e5c88633b2deae724d2
 
-```dotenv
-database.default.hostname = localhost
-database.default.database = db_ci4
-database.default.username = root
-database.default.password =
-database.default.DBDriver = MySQLi
-```
-
-### 4. Migrasi Database
+### 4. **Jalankan migrasi database**
 
 ```bash
 php spark migrate
 ```
 
-### 5. Seeder Data
+### 5. **Seeder data**
 
 ```bash
 php spark db:seed ProductSeeder
-php spark db:seed UserSeeder
-php spark db:seed DiskonSeeder
 ```
 
-### 6. Jalankan Server
+```bash
+php spark db:seed UserSeeder
+```
+
+### 6. **Jalankan server**
 
 ```bash
 php spark serve
 ```
 
-### 7. Buka di Browser
+### 7. **Akses aplikasi**
 
-[http://localhost:8080](http://localhost:8080)
+Buka browser dan akses `http://localhost:8080` untuk melihat aplikasi.
 
 ---
 
