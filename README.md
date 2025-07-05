@@ -4,6 +4,19 @@ Aplikasi ini merupakan sistem toko online sederhana berbasis **CodeIgniter 4**, 
 
 ---
 
+## 📚 Daftar Isi
+
+- [📦 Fitur Utama](#-fitur-utama)
+- [💻 Teknologi yang Digunakan](#-teknologi-yang-digunakan)
+- [📁 Struktur Proyek](#-struktur-proyek)
+- [🚀 Instalasi & Setup](#-instalasi--setup)
+- [🔐 Login Default](#-login-default)
+- [🌐 Webservice API (Untuk Dashboard)](#-webservice-api-untuk-dashboard)
+- [📊 Dashboard Viewer](#-dashboard-viewer)
+- [🧑‍💻 Developer](#-developer)
+
+---
+
 ## 📦 Fitur Utama
 
 ### 🔍 Katalog Produk
